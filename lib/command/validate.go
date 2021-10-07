@@ -1,9 +1,6 @@
 package command
 
-import (
-	"fmt"
-	"strconv"
-)
+import "strconv"
 
 // TODO: read discord dev docs and finish validation
 // Check if the JSON payload for creating a command is valid
@@ -72,7 +69,7 @@ func (c CommandOption) validateChoices(path string, errors *[]error) {
 	}
 
 	for _, choice := range c.Choices {
-		p := fmt.Sprintf("%v.%v", path, choice.Name)
+    p := path + "." + choice.Name
 
 		if c.Type == 4 {
 			_, err := strconv.ParseInt(choice.Value, 10, 0)

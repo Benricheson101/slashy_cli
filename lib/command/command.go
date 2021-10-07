@@ -1,5 +1,9 @@
 package command
 
+type CommandFile struct {
+	Commands []Command `yaml:"commands" json:"commands"`
+}
+
 type Command struct {
 	Name        string          `yaml:"name" json:"name"`
 	Description string          `yaml:"description" json:"description"`

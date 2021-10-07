@@ -5,29 +5,23 @@ import (
 	"log"
 	"os"
 
+	"github.com/benricheson101/slashy_cli/lib/command"
 	"github.com/goccy/go-yaml"
-
-	"github.com/benricheson101/slashy_cli/command"
 )
 
-type TopLevel struct {
-	Commands []command.Command `yaml:"commands" json:"commands"`
-}
-
 func main() {
-	var data TopLevel
+  var cmds command.CommandFile
 
-	cmds, err := os.ReadFile("./cmd.yml")
-
+	_cmds, err := os.ReadFile("./cmd.yml")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := yaml.Unmarshal([]byte(cmds), &data); err != nil {
+	if err := yaml.Unmarshal([]byte(_cmds), &cmds); err != nil {
 		log.Fatal(err)
 	}
 
-	for _, cmd := range data.Commands {
+	for _, cmd := range cmds.Commands {
 		errs := cmd.Validate()
 
 		if len(errs) != 0 {
