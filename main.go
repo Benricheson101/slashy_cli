@@ -28,13 +28,15 @@ func main() {
 	}
 
 	for _, cmd := range data.Commands {
-		_, errs := cmd.Validate()
+		errs := cmd.Validate()
 
 		if len(errs) != 0 {
 			fmt.Println("Errors:")
 			for _, e := range errs {
 				fmt.Println("  =>", e)
 			}
+
+      os.Exit(1)
 		}
 	}
 }

@@ -29,6 +29,13 @@ type CommandOptionFieldNotAllowed struct {
 	Path  string
 }
 
+type CommandFieldExceedsMaxLen struct {
+	Field string
+	Found int
+	Max   int
+	Path  string
+}
+
 func (e InvalidCommandOptionType) Error() string {
 	return fmt.Sprintf("invalid command option `%v` at `%v`", e.OptionType, e.Path)
 }
@@ -47,4 +54,8 @@ func (e CommandOptionFieldNotAllowed) Error() string {
 
 func (e InvalidCommandOptionChoiceValue) Error() string {
 	return fmt.Sprintf("expected choice.value type `%v`, got `%v` at `%v`", e.Expected, e.Actual, e.Path)
+}
+
+func (e CommandFieldExceedsMaxLen) Error() string {
+	return fmt.Sprintf("field `%v` exceeds maximum length `%v`, found `%v` at `%v`", e.Field, e.Max, e.Found, e.Path)
 }
